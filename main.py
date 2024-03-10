@@ -16,7 +16,7 @@ class Widget(QMainWindow):
         self.ui.delete_btn.clicked.connect(self.delete_note)
         self.ui.add_teg.clicked.connect(self.add_tag_new)
         self.ui.delete_teg.clicked.connect(self.del_teg)
-
+        self.ui.searck_teg.clicked.connect(self.search_by_tag)
 
 
 
@@ -88,6 +88,18 @@ class Widget(QMainWindow):
                 self.notes[self.name]["теги"].remove(tag_name)
                 self.ui.listWidget_2.clear()
                 self.ui.listWidget_2.addItems(self.notes[self.name]["теги"])
+
+    def search_by_tag(self):
+
+        tag = self.ui.tag_edit.text()
+        if tag:
+            matching_nots = []
+            for note_name in self.notes:
+                if tag in self.notes[note_name]["теги"]:
+                    matching_nots.append(note_name)
+            
+        self.ui.vikno_zamit.clear()
+        self.ui.vikno_zamit.addItems(matching_nots)
 
 app = QApplication([])
 ex = Widget()
